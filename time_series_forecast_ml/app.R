@@ -24,7 +24,8 @@ ui <- fluidPage(
         numericInput("seasonal_period", "Seasonal Period", value = 12, min = 1)
       ),
       selectInput("model", "Select Time Series Model",
-                  choices = c("ARIMA", "SARIMA", "ARCH", "GARCH", "STLF", "LSTM", "AutoML", "ETS")),
+                  choices = c("ARIMA", "SARIMA", "ARCH", "GARCH", # "STLF", 
+                              "LSTM", "AutoML", "ETS")),
       actionButton("forecast", "Generate Forecast"),
       downloadButton("download", "Download Forecast")
     ),
@@ -166,10 +167,10 @@ server <- function(input, output, session) {
                       fit <- ugarchfit(spec, data = tsData())
                       fitted(fit)
                     },
-                    "STLF" = {
-                      n <- length(tsData())
-                      stlf(tsData(), lambda = n, biasadj = TRUE)
-                    },
+                    # "STLF" = {
+                    #   n <- length(tsData())
+                    #   stlf(tsData(), lambda = n, biasadj = TRUE)
+                    # },
                     "LSTM" = lstm_forecast(tsData(), input$horizon),
                     "AutoML" = automl_forecast(tsData(), input$horizon),
                     "ETS" = forecast::forecast(tsData(), h = input$horizon)
