@@ -1,0 +1,9 @@
+shiny
+plotly
+forecast
+rugarch
+reticulate
+h2o
+tensorflow
+keras
+shinythemes
